@@ -1,0 +1,14 @@
+# Entornos
+venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Entrenamientos: pesan mucho. Solo se suben los modelos FINALES (ver README).
+runs/*
+!runs/.gitkeep
+results/*.mp4
+
+# Archivos del juego (no se distribuyen ROMs; gym-super-mario-bros ya la incluye)
+*.nes

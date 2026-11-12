@@ -1,0 +1,15 @@
+# Prueba rápida (unos minutos en CPU) para verificar que el pipeline
+# entrenar -> guardar -> cargar -> evaluar funciona. El agente será malo.
+name: smoke_test
+action_set: SIMPLE_MOVEMENT
+frame_skip: 4
+frame_size: 84
+frame_stack: 4
+max_frames: 2000
+reward: {scale: 0.1, flag_bonus: 0.0, death_penalty: 0.0}
+seed: 0
+n_envs: 2
+total_timesteps: 4096
+ppo: {learning_rate: 0.00025, n_steps: 256, batch_size: 128, n_epochs: 2,
+      gamma: 0.9, gae_lambda: 0.95, clip_range: 0.2, ent_coef: 0.01}
+checkpoint_every: 2048

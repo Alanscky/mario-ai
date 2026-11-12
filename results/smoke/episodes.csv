@@ -1,0 +1,4 @@
+completed,max_x,progress,frames,end_reason,x_end,y_end,score,episode
+0,1416,0.448,1416,enemigo,1416,252,300,0
+0,1129,0.3572,1683,enemigo,1129,253,300,1
+0,1421,0.4495,1961,enemigo,1421,255,600,2

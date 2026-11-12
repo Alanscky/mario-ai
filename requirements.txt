@@ -1,0 +1,13 @@
+# Python 3.10 (probado). NO actualizar nada sin avisar al equipo.
+gym==0.26.2
+gym-super-mario-bros==7.4.0
+nes-py==8.2.1
+numpy==1.26.4               # nes-py se rompe con numpy 2
+gymnasium==0.29.1
+stable-baselines3==2.3.2
+torch==2.3.1                # sin GPU NVIDIA: instalar la versión CPU (ver README)
+opencv-python-headless
+pyyaml
+pandas
+matplotlib
+tensorboard

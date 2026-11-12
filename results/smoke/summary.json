@@ -1,0 +1,17 @@
+{
+  "model": "runs/smoke",
+  "episodes": 3,
+  "deterministic": false,
+  "max_frames": 10000,
+  "completion_rate": 0.0,
+  "max_x_best": 1421,
+  "max_x_mean": 1322.0,
+  "progress_mean": 0.4182333333333334,
+  "frames_mean": 1686.6666666666667,
+  "frames_mean_completed": null,
+  "frames_best_completed": null,
+  "end_reasons": {
+    "enemigo": 3
+  },
+  "eval_seconds": 8.8
+}
