@@ -1,0 +1,37 @@
+# ============================================================
+# Configuración A (BASE)
+# Hipótesis: con solo acciones hacia la derecha y la recompensa
+# original del entorno, el agente aprende a avanzar, pero le
+# cuesta superar tubos altos y huecos.
+# ============================================================
+name: config_a
+
+# --- Entorno / representación del estado ---
+action_set: RIGHT_ONLY      # 5 acciones: NOOP, right, right+A, right+B, right+A+B
+frame_skip: 4               # el agente decide cada 4 fotogramas
+frame_size: 84              # imagen 84x84 en escala de grises
+frame_stack: 4              # apila los últimos 4 frames (para percibir movimiento)
+max_frames: 10000           # límite por intento (AJUSTAR al anexo técnico del profe)
+
+# --- Recompensa ---
+reward:
+  scale: 0.1                # igual en A y B (solo para estabilidad numérica)
+  flag_bonus: 0.0
+  death_penalty: 0.0
+
+# --- PPO (stable-baselines3) ---
+seed: 42
+n_envs: 8                   # juegos en paralelo (bajar a 4 si la PC sufre)
+total_timesteps: 2000000    # pasos del agente (x4 = fotogramas)
+ppo:
+  learning_rate: 0.00025
+  n_steps: 512              # pasos por entorno antes de cada actualización
+  batch_size: 256
+  n_epochs: 4
+  gamma: 0.9
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.01            # bonus de entropía = cuánto explora
+
+# --- Registro ---
+checkpoint_every: 100000    # guarda un modelo cada N pasos

@@ -1,0 +1,18 @@
+{
+  "model": "runs/config_b",
+  "episodes": 100,
+  "deterministic": false,
+  "max_frames": 10000,
+  "completion_rate": 0.9,
+  "max_x_best": 3161,
+  "max_x_mean": 3054.79,
+  "progress_mean": 0.9664,
+  "frames_mean": 1057.02,
+  "frames_mean_completed": 1085.9666666666667,
+  "frames_best_completed": 1065,
+  "end_reasons": {
+    "bandera": 90,
+    "enemigo": 10
+  },
+  "eval_seconds": 169.9
+}

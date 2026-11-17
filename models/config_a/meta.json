@@ -1,0 +1,19 @@
+{
+  "config": "configs/config_a.yaml",
+  "started": "2026-11-17T00:23:51",
+  "hardware": {
+    "python": "3.10.22",
+    "os": "Linux-7.2.15-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "cpu": "x86_64",
+    "cpu_count": 12,
+    "torch": "2.3.1+cpu",
+    "cuda": false,
+    "gpu": null,
+    "stable_baselines3": "2.3.2",
+    "gymnasium": "0.29.1"
+  },
+  "resumed_from": null,
+  "finished": "2026-11-17T02:09:20",
+  "train_seconds": 6329,
+  "timesteps_done": 2002944
+}
