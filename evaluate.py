@@ -108,7 +108,7 @@ def main():
         r["episode"] = ep
         rows.append(r)
         print(f"[{ep + 1:>3}/{args.episodes}] completo={r['completed']}  x_max={r['max_x']:>4}  "
-              f"progreso={r['progress']:.0%}  frames={r['frames']:>5}  fin={r['end_reason']}")
+              f"progreso={r['progress']:.0%}  frames={r['frames']:>5}  puntos={r['score']:>5}  fin={r['end_reason']}")
     env.close()
 
     with open(out_dir / "episodes.csv", "w", newline="") as f:
@@ -132,6 +132,9 @@ def main():
         "frames_mean": float(np.mean([r["frames"] for r in rows])),
         "frames_mean_completed": float(np.mean([r["frames"] for r in done])) if done else None,
         "frames_best_completed": min((r["frames"] for r in done), default=None),
+        "score_mean": float(np.mean([r["score"] for r in rows])),
+        "score_max": max(r["score"] for r in rows),
+        "score_mean_completed": float(np.mean([r["score"] for r in done])) if done else None,
         "end_reasons": reasons,
         "eval_seconds": round(time.time() - t0, 1),
     }

@@ -153,16 +153,29 @@ class ShapeReward(gym.Wrapper):
         - multiplicar todo por `scale`
         - sumar `flag_bonus` al tocar la bandera
         - sumar `death_penalty` (negativo) al morir
+        - sumar `score_weight` x (puntos ganados en el marcador del juego en este paso)
+          (enemigos aplastados, monedas, bloques, altura en el asta de la bandera)
     """
 
-    def __init__(self, env, scale: float = 1.0, flag_bonus: float = 0.0, death_penalty: float = 0.0):
+    def __init__(self, env, scale: float = 1.0, flag_bonus: float = 0.0, death_penalty: float = 0.0,
+                 score_weight: float = 0.0):
         super().__init__(env)
         self.scale = scale
         self.flag_bonus = flag_bonus
         self.death_penalty = death_penalty
+        self.score_weight = score_weight
+        self._last_score = 0
+
+    def reset(self, **kwargs):
+        self._last_score = 0
+        return self.env.reset(**kwargs)
 
     def step(self, action):
         obs, r, terminated, truncated, info = self.env.step(action)
+        score = info.get("score", 0)
+        if self.score_weight:
+            r += self.score_weight * max(score - self._last_score, 0)
+        self._last_score = score
         if terminated:
             if info.get("flag_get", False):
                 r += self.flag_bonus
@@ -191,6 +204,7 @@ def make_train_env(cfg: dict, render_mode: str | None = None) -> gym.Env:
     env = SkipFrame(env, cfg["frame_skip"])
     env = Preprocess(env, cfg["frame_size"])
     r = cfg.get("reward", {})
-    env = ShapeReward(env, r.get("scale", 1.0), r.get("flag_bonus", 0.0), r.get("death_penalty", 0.0))
+    env = ShapeReward(env, r.get("scale", 1.0), r.get("flag_bonus", 0.0), r.get("death_penalty", 0.0),
+                      r.get("score_weight", 0.0))
     env = FrameLimit(env, cfg["max_frames"])
     return env
