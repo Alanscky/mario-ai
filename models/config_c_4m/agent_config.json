@@ -1,0 +1,6 @@
+{
+  "action_set": "SIMPLE_MOVEMENT",
+  "frame_skip": 4,
+  "frame_size": 84,
+  "frame_stack": 4
+}

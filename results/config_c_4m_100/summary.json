@@ -1,0 +1,21 @@
+{
+  "model": "runs/config_c_4m",
+  "episodes": 100,
+  "deterministic": false,
+  "max_frames": 10000,
+  "completion_rate": 0.92,
+  "max_x_best": 3161,
+  "max_x_mean": 3039.47,
+  "progress_mean": 0.961553,
+  "frames_mean": 1062.52,
+  "frames_mean_completed": 1096.2826086956522,
+  "frames_best_completed": 1080,
+  "score_mean": 944.0,
+  "score_max": 1100,
+  "score_mean_completed": 975.0,
+  "end_reasons": {
+    "bandera": 92,
+    "enemigo": 8
+  },
+  "eval_seconds": 182.6
+}

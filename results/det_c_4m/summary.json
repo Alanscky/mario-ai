@@ -1,0 +1,20 @@
+{
+  "model": "runs/config_c_4m",
+  "episodes": 1,
+  "deterministic": true,
+  "max_frames": 10000,
+  "completion_rate": 1.0,
+  "max_x_best": 3161,
+  "max_x_mean": 3161.0,
+  "progress_mean": 1.0,
+  "frames_mean": 1080.0,
+  "frames_mean_completed": 1080.0,
+  "frames_best_completed": 1080,
+  "score_mean": 1000.0,
+  "score_max": 1000,
+  "score_mean_completed": 1000.0,
+  "end_reasons": {
+    "bandera": 1
+  },
+  "eval_seconds": 2.1
+}

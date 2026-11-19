@@ -1,0 +1,38 @@
+# ============================================================
+# Configuración C  (= B + puntos del marcador en la recompensa)
+# Única diferencia con B: score_weight (los puntos que gana Mario en el
+# marcador: enemigos, monedas, bloques, altura en el asta).
+# Hipótesis: premiar los puntos hace que el agente aplaste enemigos y
+# agarre la bandera más arriba, subiendo el puntaje sin perder mucha
+# velocidad (el reloj y el avance siguen premiando ir rápido).
+# Escala: aplastar un Goomba (100 pts) x 0.1 = 10, similar a ~1 paso
+# corriendo; la punta del asta (5000 pts) x 0.1 = 500, igual al bono de bandera.
+# ============================================================
+name: config_c
+
+action_set: SIMPLE_MOVEMENT  # 7 acciones
+frame_skip: 4
+frame_size: 84
+frame_stack: 4
+max_frames: 10000
+
+reward:
+  scale: 0.1
+  flag_bonus: 500.0           # (x0.1 => +50)
+  death_penalty: -250.0       # (x0.1 => -25)
+  score_weight: 0.1           # puntos del marcador x 0.1 (x0.1 => x0.01)
+
+seed: 42
+n_envs: 8
+total_timesteps: 2000000
+ppo:
+  learning_rate: 0.00025
+  n_steps: 512
+  batch_size: 256
+  n_epochs: 4
+  gamma: 0.9
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.01
+
+checkpoint_every: 100000
