@@ -1,0 +1,21 @@
+{
+  "model": "runs/config_c",
+  "episodes": 100,
+  "deterministic": false,
+  "max_frames": 10000,
+  "completion_rate": 0.81,
+  "max_x_best": 3161,
+  "max_x_mean": 2820.6,
+  "progress_mean": 0.892313,
+  "frames_mean": 1001.26,
+  "frames_mean_completed": 1115.0123456790122,
+  "frames_best_completed": 1080,
+  "score_mean": 844.0,
+  "score_max": 1100,
+  "score_mean_completed": 937.0370370370371,
+  "end_reasons": {
+    "bandera": 81,
+    "enemigo": 19
+  },
+  "eval_seconds": 162.4
+}

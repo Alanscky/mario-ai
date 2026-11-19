@@ -7,7 +7,8 @@ Uso:
     python evaluate.py --model runs/config_a_XXXX --episodes 30
     python evaluate.py --model runs/config_a_XXXX/checkpoints/ppo_400000_steps.zip --episodes 10
     python evaluate.py --model runs/config_a_XXXX --deterministic --episodes 1 --video results/a.mp4
-    python evaluate.py --model runs/config_a_XXXX --render          # ventana en vivo (PC local)
+    python evaluate.py --model runs/config_a_XXXX --render          # ventana en vivo a velocidad real
+    python evaluate.py --model runs/config_a_XXXX --render --fps 30 # en cámara lenta
 
 Métricas (sección 3.8 / 4.2):
     completado, x máximo, progreso normalizado, fotogramas, causa de fin.
@@ -45,8 +46,9 @@ def end_reason(info: dict, terminated: bool, frames: int, max_frames: int) -> st
     return "enemigo"
 
 
-def run_episode(env, agent, max_frames, video=None, render=False):
+def run_episode(env, agent, max_frames, video=None, render=False, fps=60):
     frame, _ = env.reset()
+    next_t = time.perf_counter()
     agent.reset()
     max_x, frames, info, terminated = 0, 0, {}, False
     while frames < max_frames:
@@ -58,6 +60,10 @@ def run_episode(env, agent, max_frames, video=None, render=False):
             video.write(frame[:, :, ::-1])       # RGB -> BGR para OpenCV
         if render:
             env.render()
+            # El emulador corre mucho más rápido que el juego real; esperamos para
+            # mostrarlo a velocidad normal (la NES original corre a 60 fotogramas por segundo)
+            next_t += 1 / fps
+            time.sleep(max(0.0, next_t - time.perf_counter()))
         if terminated or truncated:
             break
     return {
@@ -82,6 +88,7 @@ def main():
     p.add_argument("--label", help="nombre de la carpeta en results/")
     p.add_argument("--video", help="guarda un .mp4 del PRIMER intento")
     p.add_argument("--render", action="store_true", help="muestra ventana (requiere pantalla)")
+    p.add_argument("--fps", type=int, default=60, help="velocidad de la ventana con --render (60 = velocidad real)")
     args = p.parse_args()
 
     agent = Agent(args.model, deterministic=args.deterministic)
@@ -102,7 +109,7 @@ def main():
             import cv2
             Path(args.video).parent.mkdir(parents=True, exist_ok=True)
             video = cv2.VideoWriter(args.video, cv2.VideoWriter_fourcc(*"mp4v"), 60, (256, 240))
-        r = run_episode(env, agent, args.max_frames, video, args.render)
+        r = run_episode(env, agent, args.max_frames, video, args.render, args.fps)
         if video is not None:
             video.release()
         r["episode"] = ep
